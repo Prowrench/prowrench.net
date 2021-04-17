@@ -290,7 +290,7 @@
             type="button"
             :disabled="isFormSubmitting"
             @click="submitForm"
-            class="bg-primary hover:shadow-xl hover:underline text-white px-6 py-4 ml-4 text-center flex items-center justify-center"
+            class="mb-2 bg-primary hover:shadow-xl hover:underline text-white px-6 py-4 ml-4 text-center flex items-center justify-center"
             :class="{ 'disabled' : isFormSubmitting }"
           >
             <svg
@@ -310,35 +310,58 @@
             Send my request
           </button>
         </div>
+        <div class="text-right flex justify-end">
+          <small class="w-1/3"
+            >By submitting you agree to being contacted by a
+            representative.</small
+          >
+        </div>
       </form>
     </div>
 
     <footer class="py-8 px-6">
       <div class="container mx-auto flex justify-between">
-        <p class="text-white font-bold visibility-shadow">
-          ©2021 Copyright PROWRENCH
-        </p>
-        <a
-          class="flex hover:underline items-center text-white visibility-shadow"
-          href="mailto:service@prowrench.net"
-        >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 28 28"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        <div>
+          <p class="text-white font-bold visibility-shadow">
+            ©2021 Copyright PROWRENCH
+          </p>
+          <p>
+            <a
+              class="text-white underline visibility-shadow mr-3"
+              href="#privacy"
+              >Privacy</a
+            >
+            <a class="text-white underline visibility-shadow" href="#terms"
+              >Terms of Service</a
+            >
+          </p>
+        </div>
+        <div>
+          <p class="text-white text-right font-bold visibility-shadow">
+            Contact us directly
+          </p>
+          <a
+            class="flex underline items-center text-white visibility-shadow"
+            href="mailto:service@prowrench.net"
           >
-            <path
-              d="M8.20985 17.7325L15.1975 13.8373M8.20985 17.7325L10.8449 26.5674L22.1852 9.94222L2.0809 10.8451L8.20985 17.7325Z"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          service@prowrench.net
-        </a>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.20985 17.7325L15.1975 13.8373M8.20985 17.7325L10.8449 26.5674L22.1852 9.94222L2.0809 10.8451L8.20985 17.7325Z"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            service@prowrench.net
+          </a>
+        </div>
       </div>
     </footer>
 
