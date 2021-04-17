@@ -3,6 +3,10 @@
   --secondary-color: #f8f8f8;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html body {
   font-family: "roboto", sans-serif;
   color: #4a4a4a;
