@@ -1,206 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>PROWRENCH - Auto service in Wichita, Kansas</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+  </head>
 
-<head>
-  <title>PROWRENCH - Auto service in Wichita, Kansas</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
-  <link rel="stylesheet" type="text/css" href="styles.css" />
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Lato:wght@100;400;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-    crossorigin="anonymous" />
-</head>
-
-<body>
-  <div id="app" class="container mx-auto pt-12 mb-12">
-    <h3 class="text-center text-xl font-bold">Serving Wichita Metro Area</h3>
-    <h1 class="font-display text-center text-4xl mb-8 text-primary">PROWRENCH <span class="sr-only hidden">Auto Service
-        </class>
-    </h1>
-    <div class="flex mb-6">
-      <div class="sidebar">
-        <div class="py-4 px-6 bg-brand-gray">
-          <h3 class="font-display mb-2">Vehicle Type</h3>
-          <ul>
-            <li @click="activeCategorySlug = 'car'" :class="{ 'active' : activeCategorySlug === 'car' }"><a
-                href="#car">Car</a></li>
-            <li @click="activeCategorySlug = 'truck'" :class="{ 'active' : activeCategorySlug === 'truck' }"><a
-                href="#truck">Truck</a></li>
-            <li @click="activeCategorySlug = 'suv'" :class="{ 'active' : activeCategorySlug === 'suv' }"><a
-                href="#suv">SUV</a></li>
+  <body>
+    <div id="app" class="container mx-auto pt-12 mb-12">
+      <h3 class="text-center text-xl font-bold">Serving Wichita Metro Area</h3>
+      <h1 class="font-display text-center text-4xl mb-4 text-primary">
+        <img
+          class="inline-block"
+          src="prowrench.svg"
+          alt="PROWRENCH"
+          title="LOGO"
+        /><span class="sr-only hidden">PROWRENCH Auto Service </span>
+      </h1>
+      <p class="mb-16 text-center flex items-center justify-center">
+        <svg
+          class="w-4 h-4 mr-1 text-red-800"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <strong class="text-red-800 font-display leading-none"
+          ><small
+            ><a href="tel:3165553928" class="underline hover:no-underline"
+              >Call (316) 555-3928 for emergencies</a
+            ></small
+          ></strong
+        >
+      </p>
+      <div class="flex mb-6">
+        <div class="sidebar">
+          <div class="py-4 px-6 bg-brand-gray">
+            <h3 class="font-display mb-2">Vehicle Type</h3>
+            <ul>
+              <li
+                @click="activeCategorySlug = 'car'"
+                :class="{ 'active' : activeCategorySlug === 'car' }"
+              >
+                <a href="#car">Car</a>
+              </li>
+              <li
+                @click="activeCategorySlug = 'truck'"
+                :class="{ 'active' : activeCategorySlug === 'truck' }"
+              >
+                <a href="#truck">Truck</a>
+              </li>
+              <li
+                @click="activeCategorySlug = 'suv'"
+                :class="{ 'active' : activeCategorySlug === 'suv' }"
+              >
+                <a href="#suv">SUV</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="primary ml-6 w-full">
+          <ul class="service-list flex flex-wrap px-8">
+            <li
+              v-for="service in activeCategory"
+              @click="service.selected = !service.selected"
+              :class="{ 'active' : service.selected }"
+            >
+              <span class="price">${{ service.cost }}</span>
+              <span class="label">{{ service.label }}</span>
+              <svg
+                v-if="service.selected"
+                class="selected"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M14.3345 0.000183105H5.66549C2.26791 0.000183105 0.000488281 2.43278 0.000488281 5.91618V14.0842C0.000488281 17.5709 2.26186 20.0002 5.66549 20.0002H14.3335C17.7381 20.0002 20.0005 17.5709 20.0005 14.0842V5.91618C20.0005 2.42969 17.7383 0.000183105 14.3345 0.000183105ZM5.66549 1.50018H14.3345C16.885 1.50018 18.5005 3.23515 18.5005 5.91618V14.0842C18.5005 16.7653 16.8849 18.5002 14.3335 18.5002H5.66549C3.11525 18.5002 1.50049 16.7655 1.50049 14.0842V5.91618C1.50049 3.23856 3.12083 1.50018 5.66549 1.50018ZM14.0904 7.09685C13.7975 6.80396 13.3226 6.80396 13.0297 7.09685L8.81306 11.312L6.97021 9.4697L6.88607 9.3971C6.59241 9.1793 6.17576 9.2036 5.90955 9.47C5.61671 9.7629 5.61681 10.2378 5.90977 10.5306L8.28376 12.9036L8.36786 12.9762C8.66146 13.194 9.07806 13.1697 9.34436 12.9035L14.0904 8.1575L14.163 8.0734C14.3808 7.77978 14.3566 7.36312 14.0904 7.09685Z"
+                  fill="#419A5A"
+                />
+              </svg>
+            </li>
           </ul>
+
+          <hr class="mb-4" />
+
+          <div class="text-right mb-4 pr-8">
+            <p>Estimated repair costs ${{ estimatedRepairCost }}</p>
+            <small class="font-display text-xs text-gray-500"
+              >Prices vary based on vehicle</small
+            >
+          </div>
+          <div class="flex justify-end items-center pr-6">
+            <button
+              class="hover-up bg-gray-400 text-white px-6 py-4 ml-4 text-center flex items-center justify-center"
+            >
+              <svg
+                class="w-6 h-6 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
+                ></path>
+              </svg>
+              Schedule your repair
+            </button>
+          </div>
         </div>
       </div>
-      <div class="primary ml-6 w-full">
-        <ul class="service-list flex flex-wrap px-8">
-          <li v-for="service in activeCategory" @click="service.selected = !service.selected">
-            <span class="price">${{ service.cost }}</span>
-            <span class="label">{{ service.label }}</span>
-            <svg v-if="service.selected" width="20" height="20" class="selected" viewBox="0 0 20 20" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M14.3345 0.000183105H5.66549C2.26791 0.000183105 0.000488281 2.43278 0.000488281 5.91618V14.0842C0.000488281 17.5709 2.26186 20.0002 5.66549 20.0002H14.3335C17.7381 20.0002 20.0005 17.5709 20.0005 14.0842V5.91618C20.0005 2.42969 17.7383 0.000183105 14.3345 0.000183105ZM5.66549 1.50018H14.3345C16.885 1.50018 18.5005 3.23515 18.5005 5.91618V14.0842C18.5005 16.7653 16.8849 18.5002 14.3335 18.5002H5.66549C3.11525 18.5002 1.50049 16.7655 1.50049 14.0842V5.91618C1.50049 3.23856 3.12083 1.50018 5.66549 1.50018ZM14.0904 7.09685C13.7975 6.80396 13.3226 6.80396 13.0297 7.09685L8.81306 11.312L6.97021 9.4697L6.88607 9.3971C6.59241 9.1793 6.17576 9.2036 5.90955 9.47C5.61671 9.7629 5.61681 10.2378 5.90977 10.5306L8.28376 12.9036L8.36786 12.9762C8.66146 13.194 9.07806 13.1697 9.34436 12.9035L14.0904 8.1575L14.163 8.0734C14.3808 7.77978 14.3566 7.36312 14.0904 7.09685Z"
-                fill="#419A5A" />
-            </svg>
+      <hr class="mb-8" />
+      <form class="bg-brand-gray py-9 px-8">
+        <h3 class="text-3xl font-display mb-3 text-gray-400">
+          Request a Service Advisor
+        </h3>
+        <p class="mb-6 font-black text-sm w-2/3">
+          Tell us about the vehicle and how we may reach back out to you.
+        </p>
+        <div class="flex justify-between">
+          <div class="w-1/2 pr-4">
+            <label>Name <input type="text" v-model="form.name" /></label>
+            <label>Email <input type="email" v-model="form.email" /></label>
+            <label>Phone <input type="tel" v-model="form.phone" /></label>
+          </div>
+          <div class="w-1/2 pl-4">
+            <label
+              >Vehicle <small class="text-gray-600">(Year/Make/Model)</small>
+              <input type="text" v-model="form.vehicle"
+            /></label>
+            <label
+              >Upload existing worksheet
+              <small class="text-gray-600">(optional)</small>
+              <input type="file"
+            /></label>
+            <label
+              >Select a dropoff date
+              <small class="text-gray-600">(optional)</small>
+              <input type="date" :min="today" v-model="form.dropoff"
+            /></label>
+          </div>
+        </div>
+        <label for="comments">Notes for service advisor</label>
+        <textarea
+          id="comments"
+          v-model="form.notes"
+          class="w-full mb-6"
+        ></textarea>
+        <label class="mb-0">Services requested</label>
+        <p class="text-xs" v-if="selectedServices.length === 0">
+          None selected
+        </p>
+        <ul class="block mb-8">
+          <li
+            class="inline mr-3 text-xs"
+            v-for="service in selectedServices"
+            :key="service.label"
+          >
+            {{ service.label }}
           </li>
         </ul>
-
-        <hr class="mb-4" />
-
-        <div class="text-right mb-4 pr-8">
+        <div class="text-right mb-4">
           <p>Estimated repair costs ${{ estimatedRepairCost }}</p>
         </div>
-        <div class="flex justify-end items-center pr-6">
-          <p><i class="fa fa-phone"> Call (316) 555-3928</i></p>
-          <button class="bg-primary text-white px-8 py-4 ml-4 text-center">
-            Schedule your repair
+        <div class="flex justify-end items-center">
+          <i class="fa fa-sync-alt fa-spin" v-show="isFormSubmitting"></i>
+          <i class="fa fa-check-circle" v-show="successfullySubmitted"></i>
+          <button
+            type="button"
+            :disabled="isFormSubmitting"
+            @click="submitForm"
+            class="bg-primary hover:shadow-xl hover:underline text-white px-6 py-4 ml-4 text-center flex items-center justify-center"
+            :class="{ 'disabled' : isFormSubmitting }"
+          >
+            <svg
+              class="w-6 h-6 mr-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+            Send my request
           </button>
         </div>
-      </div>
+      </form>
     </div>
-    <hr class="mb-8" />
-    <form class="bg-brand-gray py-6 px-8">
-      <div class="flex justify-between">
-        <div class="w-1/2 pr-4">
-          <label>Name <input type="text" v-model="form.name" /></label>
-          <label>Email <small>(Required)</small> <input type="email" v-model="form.email" /></label>
-          <label>Phone <input type="tel" v-model="form.phone" /></label>
-        </div>
-        <div class="w-1/2 pl-4">
-          <label>Vehicle (Year/Make/Model) <input type="text" v-model="form.vehicle" /></label>
-          <label>Upload your estimate <input type="file" /></label>
-        </div>
-      </div>
-      <label for="comments">Notes for service advisor</label>
-      <textarea id="comments" v-model="form.notes" class="w-full mb-6"></textarea>
-      <div class="text-right mb-4">
-        <p>Estimated repair costs ${{ estimatedRepairCost }}</p>
-      </div>
-      <div class="flex justify-end items-center">
-        <i class="fa fa-sync-alt fa-spin" v-show="isFormSubmitting"></i>
-        <i class="fa fa-check-circle" v-show="successfullySubmitted"></i>
-        <button type="button" :disabled="isFormSubmitting" @click="submitForm"
-          class="bg-primary text-white px-8 py-4 ml-4 text-center">
-          Request Service Advisor <i class="fa fa-phone"></i>
-        </button>
-      </div>
-    </form>
-  </div>
 
-  <footer class="py-12 px-6">
-    <div class="container mx-auto flex justify-between">
-      <p class="text-white">©2021 Copyright PROWRENCH</p>
-      <p class="flex items-center text-white">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M8.20985 17.7325L15.1975 13.8373M8.20985 17.7325L10.8449 26.5674L22.1852 9.94222L2.0809 10.8451L8.20985 17.7325Z"
-            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        service@prowrench.net
-      </p>
-    </div>
-  </footer>
+    <footer class="py-12 px-6">
+      <div class="container mx-auto flex justify-between">
+        <p class="text-white">©2021 Copyright PROWRENCH</p>
+        <p class="flex items-center text-white">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.20985 17.7325L15.1975 13.8373M8.20985 17.7325L10.8449 26.5674L22.1852 9.94222L2.0809 10.8451L8.20985 17.7325Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          service@prowrench.net
+        </p>
+      </div>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script type="text/javascript">
-    const vm = new Vue({
-      el: '#app',
-      computed: {
-        activeCategory() {
-          return this.categories[this.activeCategorySlug];
-        },
-        selectedServices() {
-          if (!this.activeCategorySlug) {
-            return [];
-          }
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+      const vm = new Vue({
+        el: "#app",
+        computed: {
+          activeCategory() {
+            return this.categories[this.activeCategorySlug];
+          },
+          today() {
+            return new Date().toISOString().split("T")[0];
+          },
+          selectedServices() {
+            if (!this.activeCategorySlug) {
+              return [];
+            }
 
-          return this.categories[this.activeCategorySlug].filter(service => service.selected);
-        },
-        estimatedRepairCost() {
-          if (!this.activeCategorySlug) {
+            return this.categories[this.activeCategorySlug].filter(
+              service => service.selected
+            );
+          },
+          estimatedRepairCost() {
+            if (!this.activeCategorySlug) {
+              return 0;
+            }
+
+            const selectedServices = this.selectedServices;
+
+            if (selectedServices.length > 0) {
+              return selectedServices
+                .map(service => service.cost)
+                .reduce((accumulator, cost) => {
+                  return parseInt(accumulator) + parseInt(cost);
+                });
+            }
+
             return 0;
           }
-
-          const selectedServices = this.selectedServices;
-
-          if (selectedServices.length > 0) {
-            return selectedServices.map(service => service.cost).reduce((accumulator, cost) => {
-              return parseInt(accumulator) + parseInt(cost);
+        },
+        data() {
+          return {
+            activeCategorySlug: "car",
+            categories: {
+              car: [
+                { cost: 100, label: "Oil / Fluid Change", selected: false },
+                { cost: 200, label: "Oil / Fluid Change", selected: false },
+                { cost: 300, label: "Oil / Fluid Change", selected: false },
+                { cost: 400, label: "Oil / Fluid Change", selected: false },
+                { cost: 500, label: "Oil / Fluid Change", selected: false },
+                { cost: 600, label: "Oil / Fluid Change", selected: false },
+                { cost: 700, label: "Oil / Fluid Change", selected: false },
+                { cost: 800, label: "Oil / Fluid Change", selected: false },
+                { cost: 900, label: "Oil / Fluid Change", selected: false },
+                { cost: 100, label: "Oil / Fluid Change", selected: false },
+                { cost: 200, label: "Oil / Fluid Change", selected: false },
+                { cost: 300, label: "Oil / Fluid Change", selected: false },
+                { cost: 400, label: "Oil / Fluid Change", selected: false },
+                { cost: 500, label: "Oil / Fluid Change", selected: false },
+                { cost: 600, label: "Oil / Fluid Change", selected: false },
+                { cost: 700, label: "Oil / Fluid Change", selected: false },
+                { cost: 800, label: "Oil / Fluid Change", selected: false },
+                { cost: 900, label: "Oil / Fluid Change", selected: false },
+                { cost: 100, label: "Oil / Fluid Change", selected: false },
+                { cost: 200, label: "Oil / Fluid Change", selected: false },
+                { cost: 300, label: "Oil / Fluid Change", selected: false },
+                { cost: 400, label: "Oil / Fluid Change", selected: false },
+                { cost: 500, label: "Oil / Fluid Change", selected: false },
+                { cost: 600, label: "Oil / Fluid Change", selected: false },
+                { cost: 700, label: "Oil / Fluid Change", selected: false },
+                { cost: 800, label: "Oil / Fluid Change", selected: false },
+                { cost: 900, label: "Oil / Fluid Change", selected: false }
+              ],
+              truck: [
+                { cost: 100, label: "Brake pads", selected: false },
+                { cost: 200, label: "Brake pads", selected: false },
+                { cost: 300, label: "Brake pads", selected: false },
+                { cost: 400, label: "Brake pads", selected: false },
+                { cost: 500, label: "Brake pads", selected: false },
+                { cost: 600, label: "Brake pads", selected: false },
+                { cost: 700, label: "Brake pads", selected: false },
+                { cost: 800, label: "Brake pads", selected: false },
+                { cost: 900, label: "Brake pads", selected: false }
+              ],
+              suv: [
+                { cost: 100, label: "Alternator replacement", selected: false },
+                { cost: 200, label: "Alternator replacement", selected: false },
+                { cost: 300, label: "Alternator replacement", selected: false },
+                { cost: 400, label: "Alternator replacement", selected: false },
+                { cost: 500, label: "Alternator replacement", selected: false },
+                { cost: 600, label: "Alternator replacement", selected: false },
+                { cost: 700, label: "Alternator replacement", selected: false },
+                { cost: 800, label: "Alternator replacement", selected: false },
+                { cost: 900, label: "Alternator replacement", selected: false }
+              ]
+            },
+            form: {
+              name: "",
+              email: "",
+              phone: "",
+              vehicle: "",
+              estimate: "",
+              notes: ""
+            },
+            isFormSubmitting: false,
+            successfullySubmitted: false
+          };
+        },
+        methods: {
+          submitForm() {
+            this.form.estimate = this.selectedServices.map(service => {
+              return { cost: service.cost, label: service.label };
             });
+            this.isFormSubmitting = true;
+            axios
+              .post("https://spazbot.com/prowrench", this.form)
+              .then(function (response) {
+                this.successfullySubmitted = true;
+              })
+              .catch(function (error) {
+                console.error(error);
+              })
+              .finally(function () {
+                this.isFormSubmitting = false;
+              });
           }
-
-          return 0;
         }
-      },
-      data() {
-        return {
-          activeCategorySlug: 'car',
-          categories: {
-            'car': [
-              { cost: 100, label: "Oil / Fluid Change", selected: false },
-              { cost: 200, label: "Oil / Fluid Change", selected: false },
-              { cost: 300, label: "Oil / Fluid Change", selected: false },
-              { cost: 400, label: "Oil / Fluid Change", selected: false },
-              { cost: 500, label: "Oil / Fluid Change", selected: false },
-              { cost: 600, label: "Oil / Fluid Change", selected: false },
-              { cost: 700, label: "Oil / Fluid Change", selected: false },
-              { cost: 800, label: "Oil / Fluid Change", selected: false },
-              { cost: 900, label: "Oil / Fluid Change", selected: false },
-            ],
-            'truck': [
-              { cost: 100, label: "Brake pads", selected: false },
-              { cost: 200, label: "Brake pads", selected: false },
-              { cost: 300, label: "Brake pads", selected: false },
-              { cost: 400, label: "Brake pads", selected: false },
-              { cost: 500, label: "Brake pads", selected: false },
-              { cost: 600, label: "Brake pads", selected: false },
-              { cost: 700, label: "Brake pads", selected: false },
-              { cost: 800, label: "Brake pads", selected: false },
-              { cost: 900, label: "Brake pads", selected: false },
-            ],
-            'suv': [
-              { cost: 100, label: "Alternator replacement", selected: false },
-              { cost: 200, label: "Alternator replacement", selected: false },
-              { cost: 300, label: "Alternator replacement", selected: false },
-              { cost: 400, label: "Alternator replacement", selected: false },
-              { cost: 500, label: "Alternator replacement", selected: false },
-              { cost: 600, label: "Alternator replacement", selected: false },
-              { cost: 700, label: "Alternator replacement", selected: false },
-              { cost: 800, label: "Alternator replacement", selected: false },
-              { cost: 900, label: "Alternator replacement", selected: false },
-            ]
-          },
-          form: {
-            name: '',
-            email: '',
-            phone: '',
-            vehicle: '',
-            estimate: '',
-            notes: '',
-          },
-          isFormSubmitting: false,
-          successfullySubmitted: false
-        }
-      },
-      methods: {
-        submitForm() {
-          this.form.estimate = this.selectedServices.map(service => { return { cost: service.cost, label: service.label } });
-          this.isFormSubmitting = true;
-          setTimeout(() => {
-            this.isFormSubmitting = false;
-            this.successfullySubmitted = true;
-          }, 2500);
-          console.log(this.form);
-        }
-      }
-    })
-  </script>
-</body>
-
+      });
+    </script>
+  </body>
 </html>
