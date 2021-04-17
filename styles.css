@@ -112,6 +112,7 @@ form input {
   display: block;
   padding: 5px;
   font-family: "roboto", sans-serif;
+  border-bottom: 3px solid rgba(156, 163, 175, 1);
 }
 
 form button:disabled {
@@ -123,6 +124,7 @@ form button:disabled {
 
 form textarea {
   padding: 5px;
+  border-bottom: 3px solid rgba(156, 163, 175, 1);
 }
 
 footer {
