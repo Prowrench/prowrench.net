@@ -83,12 +83,16 @@
                 <a href="#suv">SUV</a>
               </li>
             </ul>
+            <button @click="resetCategories" class="underline text-xs">
+              Clear selections
+            </button>
           </div>
         </div>
         <div class="primary ml-6 w-full">
           <ul class="service-list flex flex-wrap px-8">
             <li
-              v-for="service in activeCategory"
+              v-for="(service, index) in activeCategory"
+              :key="index+'service'"
               @click="service.selected = !service.selected"
               :class="{ 'active' : service.selected }"
             >
@@ -273,9 +277,9 @@
         </p>
         <ul class="block mb-8 text-right">
           <li
-            class="inline mr-3 text-xs"
-            v-for="service in selectedServices"
-            :key="service.label"
+            class="inline ml-3 text-xs"
+            v-for="(service, index) in selectedServices"
+            :key="index+'selected'"
           >
             {{ service.label }}
           </li>
@@ -368,8 +372,76 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript">
+      const defaultCategories = JSON.stringify({
+        car: [
+          { cost: 100, label: "Oil / Fluid Change", selected: false },
+          { cost: 200, label: "Oil / Fluid Change", selected: false },
+          { cost: 300, label: "Oil / Fluid Change", selected: false },
+          { cost: 400, label: "Oil / Fluid Change", selected: false },
+          { cost: 500, label: "Oil / Fluid Change", selected: false },
+          { cost: 600, label: "Oil / Fluid Change", selected: false },
+          { cost: 700, label: "Oil / Fluid Change", selected: false },
+          { cost: 800, label: "Oil / Fluid Change", selected: false },
+          { cost: 900, label: "Oil / Fluid Change", selected: false },
+          { cost: 100, label: "Oil / Fluid Change", selected: false },
+          { cost: 200, label: "Oil / Fluid Change", selected: false },
+          { cost: 300, label: "Oil / Fluid Change", selected: false },
+          { cost: 400, label: "Oil / Fluid Change", selected: false },
+          { cost: 500, label: "Oil / Fluid Change", selected: false },
+          { cost: 600, label: "Oil / Fluid Change", selected: false },
+          { cost: 700, label: "Oil / Fluid Change", selected: false },
+          { cost: 800, label: "Oil / Fluid Change", selected: false },
+          { cost: 900, label: "Oil / Fluid Change", selected: false },
+          { cost: 100, label: "Oil / Fluid Change", selected: false },
+          { cost: 200, label: "Oil / Fluid Change", selected: false },
+          { cost: 300, label: "Oil / Fluid Change", selected: false },
+          { cost: 400, label: "Oil / Fluid Change", selected: false },
+          { cost: 500, label: "Oil / Fluid Change", selected: false },
+          { cost: 600, label: "Oil / Fluid Change", selected: false },
+          { cost: 700, label: "Oil / Fluid Change", selected: false },
+          { cost: 800, label: "Oil / Fluid Change", selected: false },
+          { cost: 900, label: "Oil / Fluid Change", selected: false }
+        ],
+        truck: [
+          { cost: 100, label: "Brake pads", selected: false },
+          { cost: 200, label: "Brake pads", selected: false },
+          { cost: 300, label: "Brake pads", selected: false },
+          { cost: 400, label: "Brake pads", selected: false },
+          { cost: 500, label: "Brake pads", selected: false },
+          { cost: 600, label: "Brake pads", selected: false },
+          { cost: 700, label: "Brake pads", selected: false },
+          { cost: 800, label: "Brake pads", selected: false },
+          { cost: 900, label: "Brake pads", selected: false }
+        ],
+        suv: [
+          { cost: 100, label: "Alternator replacement", selected: false },
+          { cost: 200, label: "Alternator replacement", selected: false },
+          { cost: 300, label: "Alternator replacement", selected: false },
+          { cost: 400, label: "Alternator replacement", selected: false },
+          { cost: 500, label: "Alternator replacement", selected: false },
+          { cost: 600, label: "Alternator replacement", selected: false },
+          { cost: 700, label: "Alternator replacement", selected: false },
+          { cost: 800, label: "Alternator replacement", selected: false },
+          { cost: 900, label: "Alternator replacement", selected: false }
+        ]
+      });
       const vm = new Vue({
         el: "#app",
+        watch: {
+          categories: {
+            handler: function (newValue) {
+              localStorage.setItem("services", JSON.stringify(newValue));
+            },
+            deep: true
+          }
+        },
+        created: function () {
+          const services = localStorage.getItem("services");
+
+          if (services !== null) {
+            this.categories = JSON.parse(services);
+          }
+        },
         computed: {
           activeCategory() {
             return this.categories[this.activeCategorySlug];
@@ -407,59 +479,8 @@
         data() {
           return {
             activeCategorySlug: "car",
-            categories: {
-              car: [
-                { cost: 100, label: "Oil / Fluid Change", selected: false },
-                { cost: 200, label: "Oil / Fluid Change", selected: false },
-                { cost: 300, label: "Oil / Fluid Change", selected: false },
-                { cost: 400, label: "Oil / Fluid Change", selected: false },
-                { cost: 500, label: "Oil / Fluid Change", selected: false },
-                { cost: 600, label: "Oil / Fluid Change", selected: false },
-                { cost: 700, label: "Oil / Fluid Change", selected: false },
-                { cost: 800, label: "Oil / Fluid Change", selected: false },
-                { cost: 900, label: "Oil / Fluid Change", selected: false },
-                { cost: 100, label: "Oil / Fluid Change", selected: false },
-                { cost: 200, label: "Oil / Fluid Change", selected: false },
-                { cost: 300, label: "Oil / Fluid Change", selected: false },
-                { cost: 400, label: "Oil / Fluid Change", selected: false },
-                { cost: 500, label: "Oil / Fluid Change", selected: false },
-                { cost: 600, label: "Oil / Fluid Change", selected: false },
-                { cost: 700, label: "Oil / Fluid Change", selected: false },
-                { cost: 800, label: "Oil / Fluid Change", selected: false },
-                { cost: 900, label: "Oil / Fluid Change", selected: false },
-                { cost: 100, label: "Oil / Fluid Change", selected: false },
-                { cost: 200, label: "Oil / Fluid Change", selected: false },
-                { cost: 300, label: "Oil / Fluid Change", selected: false },
-                { cost: 400, label: "Oil / Fluid Change", selected: false },
-                { cost: 500, label: "Oil / Fluid Change", selected: false },
-                { cost: 600, label: "Oil / Fluid Change", selected: false },
-                { cost: 700, label: "Oil / Fluid Change", selected: false },
-                { cost: 800, label: "Oil / Fluid Change", selected: false },
-                { cost: 900, label: "Oil / Fluid Change", selected: false }
-              ],
-              truck: [
-                { cost: 100, label: "Brake pads", selected: false },
-                { cost: 200, label: "Brake pads", selected: false },
-                { cost: 300, label: "Brake pads", selected: false },
-                { cost: 400, label: "Brake pads", selected: false },
-                { cost: 500, label: "Brake pads", selected: false },
-                { cost: 600, label: "Brake pads", selected: false },
-                { cost: 700, label: "Brake pads", selected: false },
-                { cost: 800, label: "Brake pads", selected: false },
-                { cost: 900, label: "Brake pads", selected: false }
-              ],
-              suv: [
-                { cost: 100, label: "Alternator replacement", selected: false },
-                { cost: 200, label: "Alternator replacement", selected: false },
-                { cost: 300, label: "Alternator replacement", selected: false },
-                { cost: 400, label: "Alternator replacement", selected: false },
-                { cost: 500, label: "Alternator replacement", selected: false },
-                { cost: 600, label: "Alternator replacement", selected: false },
-                { cost: 700, label: "Alternator replacement", selected: false },
-                { cost: 800, label: "Alternator replacement", selected: false },
-                { cost: 900, label: "Alternator replacement", selected: false }
-              ]
-            },
+            categories:
+              localStorage.getItem("services") ?? JSON.parse(defaultCategories),
             form: {
               name: "",
               email: "",
@@ -473,6 +494,9 @@
           };
         },
         methods: {
+          resetCategories() {
+            this.categories = JSON.parse(defaultCategories);
+          },
           submitForm() {
             this.form.estimate = this.selectedServices.map(service => {
               return { cost: service.cost, label: service.label };
