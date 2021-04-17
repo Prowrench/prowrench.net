@@ -8,6 +8,10 @@ html body {
   color: #4a4a4a;
 }
 
+html body .container {
+  max-width: 760px;
+}
+
 .bg-primary {
   background-color: var(--primary-color);
 }
@@ -88,6 +92,15 @@ form input {
   font-family: "Lato", sans-serif;
 }
 
+form button:disabled {
+  background-color: #366844;
+  color: #ccc;
+}
+
 form textarea {
   padding: 5px;
+}
+
+footer {
+  background-color: #366844;
 }
