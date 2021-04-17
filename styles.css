@@ -1,0 +1,93 @@
+:root {
+  --primary-color: #419a5a;
+  --secondary-color: #f8f8f8;
+}
+
+html body {
+  font-family: "Lato", sans-serif;
+  color: #4a4a4a;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-brand-gray {
+  background-color: var(--secondary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.font-sans {
+  font-family: "Lato", sans-serif;
+}
+
+.font-display {
+  font-family: "Aldrich", sans-serif;
+}
+
+.sidebar {
+  min-width: 200px;
+}
+.sidebar ul li {
+  background-color: #fff;
+  font-family: "Lato", sans-serif;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+  background-color: rgba(65, 154, 90, 0.15);
+  color: var(--primary-color);
+}
+
+.service-list {
+  margin-bottom: 20px;
+}
+
+.service-list li {
+  width: 50%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.service-list li .price {
+  font-family: "Aldrich", sans-serif;
+  color: #757575;
+  margin-right: 6px;
+}
+
+.service-list li .label {
+  line-height: 1;
+}
+
+.service-list li .selected {
+  margin-left: 6px;
+}
+
+form label {
+  margin-bottom: 20px;
+  display: block;
+  font-family: "Aldrich", sans-serif;
+}
+
+form label small {
+  color: #9d5a5a;
+}
+
+form input {
+  width: 100%;
+  display: block;
+  padding: 5px;
+  font-family: "Lato", sans-serif;
+}
+
+form textarea {
+  padding: 5px;
+}
