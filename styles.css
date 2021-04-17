@@ -4,7 +4,7 @@
 }
 
 html body {
-  font-family: "Lato", sans-serif;
+  font-family: "roboto", sans-serif;
   color: #4a4a4a;
 }
 
@@ -25,7 +25,7 @@ html body .container {
 }
 
 .font-sans {
-  font-family: "Lato", sans-serif;
+  font-family: "roboto", sans-serif;
 }
 
 .font-display {
@@ -37,7 +37,7 @@ html body .container {
 }
 .sidebar ul li {
   background-color: #fff;
-  font-family: "Lato", sans-serif;
+  font-family: "roboto", sans-serif;
   padding: 5px 10px;
   margin-bottom: 10px;
 }
@@ -61,24 +61,42 @@ html body .container {
   margin-bottom: 10px;
 }
 
+.service-list li.active .label {
+  text-decoration: underline;
+}
+
+.service-list li.active .price {
+  color: var(--primary-color);
+}
+
 .service-list li .price {
   font-family: "Aldrich", sans-serif;
+  font-size: 16px;
   color: #757575;
   margin-right: 6px;
+  padding-top: 3px;
 }
 
 .service-list li .label {
   line-height: 1;
+  font-size: 16px;
 }
 
 .service-list li .selected {
-  margin-left: 6px;
+  margin-left: 3px;
+  padding-top: 2px;
+  width: 16px;
+  height: 16px;
 }
 
 form label {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   display: block;
   font-family: "Aldrich", sans-serif;
+}
+
+form label[for="comments"] {
+  margin-bottom: 0;
 }
 
 form label small {
@@ -89,12 +107,14 @@ form input {
   width: 100%;
   display: block;
   padding: 5px;
-  font-family: "Lato", sans-serif;
+  font-family: "roboto", sans-serif;
 }
 
 form button:disabled {
   background-color: #366844;
-  color: #ccc;
+  color: #999;
+  text-decoration: none !important;
+  box-shadow: none !important;
 }
 
 form textarea {
@@ -103,4 +123,8 @@ form textarea {
 
 footer {
   background-color: #366844;
+}
+
+.hover-up:hover svg {
+  margin-top: -5px;
 }
