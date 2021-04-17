@@ -486,7 +486,7 @@
               email: "",
               phone: "",
               vehicle: "",
-              estimate: "",
+              estimate_url: "",
               notes: ""
             },
             isFormSubmitting: false,
@@ -498,9 +498,11 @@
             this.categories = JSON.parse(defaultCategories);
           },
           submitForm() {
-            this.form.estimate = this.selectedServices.map(service => {
-              return { cost: service.cost, label: service.label };
-            });
+            this.form.services = JSON.stringify(
+              this.selectedServices.map(service => {
+                return { cost: service.cost, label: service.label };
+              })
+            );
             this.isFormSubmitting = true;
             axios
               .post("https://spazbot.com/prowrench", this.form)
